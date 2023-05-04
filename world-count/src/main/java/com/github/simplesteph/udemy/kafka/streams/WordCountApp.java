@@ -36,10 +36,10 @@ public class WordCountApp {
                 .mapValues(textLine -> textLine.toLowerCase())
 
                 // 3 - flatmap values split by space
-                .flatMapValues(lowercasedTextLine -> Arrays.asList(lowercasedTextLine.split(" ")))
+                .flatMapValues(textLine -> Arrays.asList(textLine.split("\\W+")))
 
                 // 4 - select key to apply a key (we discard the old key)
-                .selectKey((ignoredKey, word) -> word)
+                .selectKey((key, word) -> word)
 
                 // 5 - group by key before aggregation
                 .groupByKey()
